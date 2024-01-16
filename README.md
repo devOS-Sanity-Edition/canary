@@ -1,13 +1,12 @@
-# Fabric Example Mod
+# Canary
+An early warning of poison in the mines.
 
-# Stuff
-This template mod, in addition to the features of the standard template mod,
-also has an example test mod as well as an example gametest setup. It uses Mojang
-mappings primarily, but also uses Quilt Mappings for Javadocs and parameter names.
+Canary is a mod that detects dangerous behavior of other mods.
 
-## Setup
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the
-IDE that you are using.
+Current features:
+- Detecting registration of EntityDataSerializers
 
-## License
-This template is available under the MIT license. Feel free to learn from it and incorporate it in your own projects.
+### Fun Fact
+This mod is named after the real life practice of using canaries in coal mines to detect
+poisonous gasses. Like the real life counterpart, if the canary dies (the game crashes),
+you've got a problem.

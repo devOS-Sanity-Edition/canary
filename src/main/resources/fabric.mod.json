@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "canary",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Canary",
+  "description": "An early warning of poison in the mines.",
   "authors": [
     "Tropheus Jay"
   ],
   "contact": {
-    "sources": "https://github.com/TropheusJ/fabric-example-mod"
+    "sources": "https://github.com/devOS-Sanity-Edition/canary"
   },
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/canary/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.tropheusj.modid.ExampleMod"
+      "one.devos.nautical.canary.Canary"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "canary.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

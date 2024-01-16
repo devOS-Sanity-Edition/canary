@@ -1,4 +1,4 @@
-package io.github.tropheusj.modid;
+package one.devos.nautical.canary;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExampleMod implements ModInitializer {
-	public static final String ID = "modid";
+public class Canary implements ModInitializer {
+	public static final String ID = "canary";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 
 	@Override
