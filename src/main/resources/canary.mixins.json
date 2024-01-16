@@ -4,6 +4,7 @@
   "package": "one.devos.nautical.canary.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EntityDataSerializersMixin"
   ],
   "client": [
   ],

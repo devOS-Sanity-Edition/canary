@@ -1,24 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "modid_test",
+  "id": "canary_test",
   "version": "1.0.0",
-  "name": "Example Mod Test",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Canary Test",
+  "description": "Test mod for Canary",
   "authors": [
-    "Tropheus Jay"
+    "devOS: Sanity Edition, Team Nautical"
   ],
   "contact": {
-    "sources": "https://github.com/TropheusJ/fabric-example-mod"
+    "sources": "https://github.com/devOS-Sanity-Edition/canary"
   },
   "license": "MIT",
-  "icon": "assets/modid_test/icon.png",
+  "icon": "assets/canary_test/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.tropheusj.modid_test.ExampleModTest"
-    ],
-    "fabric-gametest": [
-      "io.github.tropheusj.modid_test.gametest.ExampleModGameTest"
+      "one.devos.nautical.canary_test.CanaryTest"
     ]
   }
 }
