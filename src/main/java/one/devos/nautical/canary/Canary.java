@@ -34,6 +34,7 @@ public class Canary implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		Crab.initCrab();
 	}
 
 	private static Config loadConfig() {
