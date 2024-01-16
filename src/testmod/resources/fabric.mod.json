@@ -17,5 +17,8 @@
     "main": [
       "one.devos.nautical.canary_test.CanaryTest"
     ]
-  }
+  },
+  "mixins": [
+    "canary_test.mixins.json"
+  ]
 }

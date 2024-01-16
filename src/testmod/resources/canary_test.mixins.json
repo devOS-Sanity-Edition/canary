@@ -1,11 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "one.devos.nautical.canary.mixin",
+  "package": "one.devos.nautical.canary_test.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityDataSerializersMixin",
-    "SynchedEntityDataMixin"
+    "CreeperMixin"
   ],
   "client": [
   ],

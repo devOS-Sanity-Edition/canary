@@ -5,6 +5,7 @@ Canary is a mod that detects dangerous behavior of other mods.
 
 Current features:
 - Detecting registration of EntityDataSerializers
+- Detecting unsafe registration of entity tracked data
 
 ### Fun Fact
 This mod is named after the real life practice of using canaries in coal mines to detect
