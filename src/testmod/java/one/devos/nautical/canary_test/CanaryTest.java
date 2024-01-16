@@ -18,6 +18,8 @@ public class CanaryTest implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		LOGGER.info("Testing Canary...");
+		LOGGER.info(EntityDataSerializers.class.getName());
 		try {
 			EntityDataSerializers.registerSerializer(EntityDataSerializer.simpleEnum(Unit.class));
 		} catch (CanaryException e) {
