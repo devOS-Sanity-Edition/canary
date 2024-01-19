@@ -1,8 +1,5 @@
 package one.devos.nautical.canary.mixin;
 
-import java.lang.StackWalker.Option;
-import java.lang.StackWalker.StackFrame;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -55,7 +52,7 @@ public class SynchedEntityDataMixin {
 		if (scannedEntityClasses.contains(entityClass))
 			return; // unless we did that already
 
-		for (Field field : entityClass.getDeclaredFields()) {
+		for (Field field : getFieldsSafe(entityClass)) {
 			if (!Modifier.isStatic(field.getModifiers()))
 				continue;
 			if (field.getType() != EntityDataAccessor.class)
@@ -68,5 +65,19 @@ public class SynchedEntityDataMixin {
 
 		// all is well
 		scannedEntityClasses.add(entityClass);
+	}
+
+	@Unique
+	private static Field[] getFieldsSafe(Class<?> clazz) {
+		try {
+			return clazz.getDeclaredFields();
+		} catch (Throwable e) {
+			if (e instanceof ClassNotFoundException || e instanceof NoClassDefFoundError) {
+				// may load client-only classes for poorly made modded entities.
+				return new Field[0];
+			} else {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }
