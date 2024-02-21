@@ -6,9 +6,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import one.devos.nautical.canary.Canary;
-
 import one.devos.nautical.canary.CanaryException;
+
+import one.devos.nautical.canary.Config;
+import one.devos.nautical.canary.Utils;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,31 +30,22 @@ public class SynchedEntityDataMixin {
 
 	@Inject(method = "defineId", at = @At("HEAD"))
 	private static <T> void onDefine(Class<? extends Entity> entityClass, EntityDataSerializer<T> serializer, CallbackInfoReturnable<EntityDataAccessor<T>> cir) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		// stackTrace[0] = getStackTrace
-		// stackTrace[1] = onDefine
-		// stackTrace[2] = defineId
-		// stackTrace[3] = caller
-		StackTraceElement caller = stackTrace[3];
+		StackTraceElement caller = Utils.getCaller();
 		String callerClassName = caller.getClassName();
-		if (Canary.CONFIG.trackedDataWhitelist().contains(callerClassName))
+		if (Config.INSTANCE.trackedDataWhitelist().contains(callerClassName))
 			return; // explicitly declared as safe; ex. util methods
 
 		// see if the caller class is not a subclass of Entity
-		try {
-			Class<?> callerClass = Class.forName(callerClassName);
-			if (!Entity.class.isAssignableFrom(callerClass)) { // 🚨🚨🚨
-				throw new CanaryException("Unsafe tracked data registration for [" + entityClass.getName() + "] from [" + callerClassName + "]");
-			}
-		} catch (ClassNotFoundException e) {
-			Canary.LOGGER.error("[Canary]: Error finding caller class of defineId", e);
+		Class<?> callerClass = Utils.getClass(callerClassName);
+		if (!Entity.class.isAssignableFrom(callerClass)) { // 🚨🚨🚨
+			throw new CanaryException("Unsafe tracked data registration for [" + entityClass.getName() + "] from [" + callerClassName + "]");
 		}
 
 		// scan the entity class for mixin'd fields
 		if (scannedEntityClasses.contains(entityClass))
 			return; // unless we did that already
 
-		for (Field field : getFieldsSafe(entityClass)) {
+		for (Field field : Utils.getFieldsSafe(entityClass)) {
 			if (!Modifier.isStatic(field.getModifiers()))
 				continue;
 			if (field.getType() != EntityDataAccessor.class)
@@ -66,19 +58,5 @@ public class SynchedEntityDataMixin {
 
 		// all is well
 		scannedEntityClasses.add(entityClass);
-	}
-
-	@Unique
-	private static Field[] getFieldsSafe(Class<?> clazz) {
-		try {
-			return clazz.getDeclaredFields();
-		} catch (Throwable e) {
-			if (e instanceof ClassNotFoundException || e instanceof NoClassDefFoundError) {
-				// may load client-only classes for poorly made modded entities.
-				return new Field[0];
-			} else {
-				throw new RuntimeException(e);
-			}
-		}
 	}
 }

@@ -13,11 +13,6 @@
   "license": "MIT",
   "icon": "assets/canary/icon.png",
   "environment": "*",
-  "entrypoints": {
-    "main": [
-      "one.devos.nautical.canary.Canary"
-    ]
-  },
   "mixins": [
     "canary.mixins.json"
   ],
