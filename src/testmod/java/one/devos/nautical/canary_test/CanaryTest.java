@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.monster.Creeper;
 
+import net.minecraft.world.level.block.DoorBlock;
 import one.devos.nautical.canary.CanaryException;
 
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ public class CanaryTest implements ModInitializer {
 		LOGGER.info("Testing Canary...");
 		LOGGER.info(EntityDataSerializers.class.getName());
 		LOGGER.info(Creeper.class.getName());
+		LOGGER.info(DoorBlock.class.getName());
 		try {
 			EntityDataSerializers.registerSerializer(EntityDataSerializer.simpleEnum(Unit.class));
 			fail("new EntityDataSerializer");
