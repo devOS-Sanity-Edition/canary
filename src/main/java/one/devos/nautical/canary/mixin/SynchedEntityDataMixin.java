@@ -2,6 +2,7 @@ package one.devos.nautical.canary.mixin;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ import net.minecraft.world.entity.Entity;
 
 @Mixin(SynchedEntityData.class)
 public class SynchedEntityDataMixin {
-	@Unique
-	private static final Set<Class<?>> scannedEntityClasses = new HashSet<>();
+	@Unique // use synchronized just in case, client and server thread might load different classes at the same time
+	private static final Set<Class<?>> scannedEntityClasses = Collections.synchronizedSet(new HashSet<>());
 
 	@Inject(method = "defineId", at = @At("HEAD"))
 	private static <T> void onDefine(Class<? extends Entity> entityClass, EntityDataSerializer<T> serializer, CallbackInfoReturnable<EntityDataAccessor<T>> cir) {
