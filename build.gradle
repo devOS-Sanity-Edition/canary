@@ -2,7 +2,7 @@
 //file:noinspection GroovyAccessibility
 //file:noinspection GradlePackageVersionRange
 plugins {
-	id "fabric-loom" version "1.4.+"
+	id "fabric-loom" version "1.6.+"
 	id "maven-publish"
 }
 
@@ -29,7 +29,7 @@ dependencies {
 	// dev environment
 	minecraft("com.mojang:minecraft:$minecraft_version")
 	mappings(loom.layered {
-		it.mappings("org.quiltmc:quilt-mappings:$minecraft_version+build.$qm_version:intermediary-v2")
+//		it.mappings("org.quiltmc:quilt-mappings:$minecraft_version+build.$qm_version:intermediary-v2")
 		if (parchment_version != "none")
 			it.parchment("org.parchmentmc.data:parchment-$minecraft_version:$parchment_version@zip")
 		it.officialMojangMappings { nameSyntheticMembers = false }

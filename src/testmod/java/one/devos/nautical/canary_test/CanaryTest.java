@@ -2,11 +2,11 @@ package one.devos.nautical.canary_test;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.monster.Creeper;
 
 import net.minecraft.world.level.block.DoorBlock;
@@ -26,7 +26,7 @@ public class CanaryTest implements ModInitializer {
 		LOGGER.info(Creeper.class.getName());
 		LOGGER.info(DoorBlock.class.getName());
 		try {
-			EntityDataSerializers.registerSerializer(EntityDataSerializer.simpleEnum(Unit.class));
+			EntityDataSerializers.registerSerializer(EntityDataSerializer.forValueType(ByteBufCodecs.byteArray(3)));
 			fail("new EntityDataSerializer");
 		} catch (CanaryException e) {
 		}
