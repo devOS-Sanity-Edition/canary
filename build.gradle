@@ -2,7 +2,7 @@
 //file:noinspection GroovyAccessibility
 //file:noinspection GradlePackageVersionRange
 plugins {
-	id "fabric-loom" version "1.4.+"
+	id "fabric-loom" version "1.10.+"
 	id "maven-publish"
 }
 
@@ -17,7 +17,6 @@ String patch = buildNumber != null ? buildNumber : "99999"
 version = mod_version.replace("<build>", patch)
 
 repositories {
-	maven { url = "https://maven.quiltmc.org/repository/release" }
 	maven { url = "https://maven.parchmentmc.org" }
 	maven { url = "https://api.modrinth.com/maven" }
 	maven { url = "https://maven.bai.lol" }
@@ -29,10 +28,9 @@ dependencies {
 	// dev environment
 	minecraft("com.mojang:minecraft:$minecraft_version")
 	mappings(loom.layered {
-		it.mappings("org.quiltmc:quilt-mappings:$minecraft_version+build.$qm_version:intermediary-v2")
+		officialMojangMappings { nameSyntheticMembers = false }
 		if (parchment_version != "none")
-			it.parchment("org.parchmentmc.data:parchment-$minecraft_version:$parchment_version@zip")
-		it.officialMojangMappings { nameSyntheticMembers = false }
+			parchment("org.parchmentmc.data:parchment-$minecraft_version:$parchment_version@zip")
 	})
 	modImplementation("net.fabricmc:fabric-loader:$loader_version")
 }

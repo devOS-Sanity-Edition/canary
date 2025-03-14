@@ -1,7 +1,9 @@
 package one.devos.nautical.canary_test;
 
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,7 +28,8 @@ public class CanaryTest implements ModInitializer {
 		LOGGER.info(Creeper.class.getName());
 		LOGGER.info(DoorBlock.class.getName());
 		try {
-			EntityDataSerializers.registerSerializer(EntityDataSerializer.simpleEnum(Unit.class));
+			StreamCodec<ByteBuf, Unit> codec = StreamCodec.unit(Unit.INSTANCE);
+			EntityDataSerializers.registerSerializer(EntityDataSerializer.forValueType(codec));
 			fail("new EntityDataSerializer");
 		} catch (CanaryException e) {
 		}
@@ -42,6 +45,6 @@ public class CanaryTest implements ModInitializer {
 	}
 
 	public static ResourceLocation id(String path) {
-		return new ResourceLocation(ID, path);
+		return ResourceLocation.fromNamespaceAndPath(ID, path);
 	}
 }
