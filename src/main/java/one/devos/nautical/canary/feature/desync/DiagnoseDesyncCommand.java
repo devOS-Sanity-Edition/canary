@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Component;
 public class DiagnoseDesyncCommand {
 	public static LiteralArgumentBuilder<FabricClientCommandSource> build() {
 		return ClientCommandManager.literal("diagnoseDesync")
-				.requires(source -> source.hasPermission(4))
 				.executes(ctx -> {
 					FabricClientCommandSource source = ctx.getSource();
 					if (source.getClient().hasSingleplayerServer()) {

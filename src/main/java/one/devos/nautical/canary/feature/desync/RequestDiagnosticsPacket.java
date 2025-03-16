@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import one.devos.nautical.canary.CanaryPackets;
+import one.devos.nautical.canary.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public enum RequestDiagnosticsPacket implements CustomPacketPayload {
 
 	public static void handle(RequestDiagnosticsPacket ignored, ServerPlayNetworking.Context context) {
 		ServerPlayer player = context.player();
-		if (player.hasPermissions(4)) {
+		if (player.hasPermissions(Config.INSTANCE.diagnosticsPermissionLevel())) {
 			player.sendSystemMessage(Component.literal("Diagnostics en route. Check the client log for results."));
 		} else {
 			player.sendSystemMessage(Component.literal("You don't have permission for that."));
