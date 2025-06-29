@@ -12,7 +12,7 @@ public class FabricApiCheck {
 			for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
 				for (ModDependency dependency : modContainer.getMetadata().getDependencies()) {
 					if (dependency.getModId().equals("fabric")) {
-						throw new CanaryException("Depending on `fabric` and not `fabric-api` has been deprecated since 1.19.3.");
+						throw new CanaryException("Mod "+modContainer.getMetadata().getName()+" depends on `fabric` and not `fabric-api`. This behaviour has been deprecated since 1.19.3.");
 					}
 				}
 			}
