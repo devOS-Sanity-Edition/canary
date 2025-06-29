@@ -27,7 +27,7 @@ public record Config(boolean printBlockStateReport, int diagnosticsPermissionLev
 			Codec.INT.optionalFieldOf("desync_diagnostics_permission_level", 4).forGetter(Config::diagnosticsPermissionLevel),
 			Codec.STRING.listOf().optionalFieldOf("tracked_data_whitelist", List.of()).forGetter(Config::trackedDataWhitelist),
 			Codec.STRING.listOf().optionalFieldOf("state_builder_whitelist", List.of()).forGetter(Config::stateBuilderWhitelist),
-			Codec.BOOL.optionalFieldOf("break-legacy-fabric-dependency", true).forGetter(Config::breakLegacyFabricDependency)
+			Codec.BOOL.optionalFieldOf("break_legacy_fabric_dependency", true).forGetter(Config::breakLegacyFabricDependency)
 			).apply(instance, Config::new));
 
 	public static final Config INSTANCE = load();
