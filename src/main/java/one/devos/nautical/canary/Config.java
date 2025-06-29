@@ -17,7 +17,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 
 public record Config(boolean printBlockStateReport, int diagnosticsPermissionLevel,
-					 List<String> trackedDataWhitelist, List<String> stateBuilderWhitelist) {
+					 List<String> trackedDataWhitelist, List<String> stateBuilderWhitelist, boolean breakLegacyFabricDependency) {
 
 	public static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("canary.json");
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -26,8 +26,9 @@ public record Config(boolean printBlockStateReport, int diagnosticsPermissionLev
 			Codec.BOOL.optionalFieldOf("print_blockstate_report", false).forGetter(Config::printBlockStateReport),
 			Codec.INT.optionalFieldOf("desync_diagnostics_permission_level", 4).forGetter(Config::diagnosticsPermissionLevel),
 			Codec.STRING.listOf().optionalFieldOf("tracked_data_whitelist", List.of()).forGetter(Config::trackedDataWhitelist),
-			Codec.STRING.listOf().optionalFieldOf("state_builder_whitelist", List.of()).forGetter(Config::stateBuilderWhitelist)
-	).apply(instance, Config::new));
+			Codec.STRING.listOf().optionalFieldOf("state_builder_whitelist", List.of()).forGetter(Config::stateBuilderWhitelist),
+			Codec.BOOL.optionalFieldOf("break-legacy-fabric-dependency", true).forGetter(Config::breakLegacyFabricDependency)
+			).apply(instance, Config::new));
 
 	public static final Config INSTANCE = load();
 
@@ -39,7 +40,8 @@ public record Config(boolean printBlockStateReport, int diagnosticsPermissionLev
 		return new Config(
 				false, 4,
 				List.of("com.example.mymod.Utilities"),
-				List.of("net.example.examplemod.Utils")
+				List.of("net.example.examplemod.Utils"),
+				true
 		);
 	}
 
