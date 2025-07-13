@@ -10,7 +10,10 @@ public class Canary implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		CanaryPackets.register();
-		FabricApiCheck.checkForDeprecatedApi();
+
+		if (Config.INSTANCE.breakLegacyFabricDependency()) {
+			FabricApiCheck.run();
+		}
 	}
 
 	public static ResourceLocation id(String path) {

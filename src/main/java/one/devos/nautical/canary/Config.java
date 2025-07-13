@@ -28,7 +28,7 @@ public record Config(boolean printBlockStateReport, int diagnosticsPermissionLev
 			Codec.STRING.listOf().optionalFieldOf("tracked_data_whitelist", List.of()).forGetter(Config::trackedDataWhitelist),
 			Codec.STRING.listOf().optionalFieldOf("state_builder_whitelist", List.of()).forGetter(Config::stateBuilderWhitelist),
 			Codec.BOOL.optionalFieldOf("break_legacy_fabric_dependency", true).forGetter(Config::breakLegacyFabricDependency)
-			).apply(instance, Config::new));
+	).apply(instance, Config::new));
 
 	public static final Config INSTANCE = load();
 
