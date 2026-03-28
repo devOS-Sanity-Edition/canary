@@ -27,24 +27,14 @@ public class CanaryTest implements ModInitializer {
 		LOGGER.info(EntityDataSerializers.class.getName());
 		LOGGER.info(Creeper.class.getName());
 		LOGGER.info(DoorBlock.class.getName());
-		try {
-			StreamCodec<ByteBuf, Unit> codec = StreamCodec.unit(Unit.INSTANCE);
-			EntityDataSerializers.registerSerializer(EntityDataSerializer.forValueType(codec));
-			fail("new EntityDataSerializer");
-		} catch (CanaryException e) {
-		}
+
 		try {
 			SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.BLOCK_POS);
 			fail("SynchedEntityData from mod init");
-		} catch (CanaryException e) {
-		}
+		} catch (CanaryException _) {}
 	}
 
 	public static void fail(String testName) {
 		throw new RuntimeException("Canary test failed: " + testName);
-	}
-
-	public static Identifier id(String path) {
-		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 }
