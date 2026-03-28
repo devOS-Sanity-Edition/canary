@@ -6,7 +6,7 @@ plugins {
 group = "one.devos.nautical"
 version = providers.environmentVariable("GITHUB_RUN_NUMBER")
     .orElse("99999")
-    .map { "2.3.$it" }
+    .map { "3.0.$it" }
     .get()
 
 dependencies {
