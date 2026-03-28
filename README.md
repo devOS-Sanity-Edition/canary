@@ -1,12 +1,27 @@
 # Canary
 An early warning of poison in the mines.
 
-Canary is a mod that detects dangerous behavior of other mods.
+Canary is a mod that detects dangerous behaviors in other mods and provides several diagnostic tools.
 
-Current problems that Canary detects:
-- Registration of new EntityDataSerializers
-- Unsafe registration of entity tracked data
-- Adding new BlockState properties to vanilla blocks
+### Detected Issues
+
+#### BlockState Property Injection
+Some mods try to add new BlockState properties to vanilla blocks.
+Unfortunately, this is likely to cause block desyncs.
+
+Solutions:
+- Use [Statement](https://github.com/Virtuoel/Statement), a library designed to do this safely
+- Use a custom block instead, converting between it and the vanilla block as needed
+
+#### Synced Entity Data Injection
+Some mods try to add new synced data entries (`EntityDataAccessor`s) to vanilla entity classes.
+Doing this is likely to cause inscrutable networking errors, since field order is not stable between clients and the server.
+
+Solutions:
+- Use a [Data Attachment](https://docs.fabricmc.net/develop/data-attachments)
+- Store values in normal fields, and sync them with custom packets
+
+### Diagnostics
 
 In addition, Canary has the following diagnostic features:
 - when enabled in the config (`"print_blockstate_report": true`), a report of BlockStates will be printed to the log
