@@ -16,9 +16,9 @@ public class CanaryPackets {
 	public static final CustomPacketPayload.Type<ResponseEndPacket> RESPONSE_END = create("response_end");
 
 	public static void register() {
-		PayloadTypeRegistry.playC2S().register(REQUEST_DIAGNOSTICS, RequestDiagnosticsPacket.CODEC);
-		PayloadTypeRegistry.playS2C().register(RESPONSE_DATA, ResponseDataPacket.CODEC);
-		PayloadTypeRegistry.playS2C().register(RESPONSE_END, ResponseEndPacket.CODEC);
+		PayloadTypeRegistry.serverboundPlay().register(REQUEST_DIAGNOSTICS, RequestDiagnosticsPacket.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(RESPONSE_DATA, ResponseDataPacket.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(RESPONSE_END, ResponseEndPacket.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(REQUEST_DIAGNOSTICS, RequestDiagnosticsPacket::handle);
 	}
 

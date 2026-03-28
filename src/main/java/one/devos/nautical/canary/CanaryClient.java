@@ -14,8 +14,6 @@ public class CanaryClient implements ClientModInitializer {
 		if (Config.INSTANCE.printBlockStateReport())
 			BlockStateReport.print();
 
-		ClientCommandRegistrationCallback.EVENT.register(
-				(dispatcher, registries) -> dispatcher.register(CanaryClientCommands.build())
-		);
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, _) -> dispatcher.register(CanaryClientCommands.build()));
 	}
 }

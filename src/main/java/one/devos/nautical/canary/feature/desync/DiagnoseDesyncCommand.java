@@ -2,14 +2,14 @@ package one.devos.nautical.canary.feature.desync;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.chat.Component;
 
 public class DiagnoseDesyncCommand {
 	public static LiteralArgumentBuilder<FabricClientCommandSource> build() {
-		return ClientCommandManager.literal("diagnoseDesync")
+		return ClientCommands.literal("diagnoseDesync")
 				.executes(ctx -> {
 					FabricClientCommandSource source = ctx.getSource();
 					if (source.getClient().hasSingleplayerServer()) {

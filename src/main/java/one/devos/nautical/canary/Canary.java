@@ -1,7 +1,7 @@
 package one.devos.nautical.canary;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import one.devos.nautical.canary.feature.FabricApiCheck;
 
 public class Canary implements ModInitializer {
@@ -16,7 +16,7 @@ public class Canary implements ModInitializer {
 		}
 	}
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(ID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 }

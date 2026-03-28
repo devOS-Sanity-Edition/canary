@@ -25,7 +25,8 @@
     "canary.mixins.json"
   ],
   "depends": {
+    "minecraft": ">=${minecraft_version}",
     "fabricloader": ">=${loader_version}",
-    "minecraft": "${minecraft_dependency}"
+    "fabric-api": ">=${fabric_api_version}"
   }
 }

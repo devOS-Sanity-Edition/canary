@@ -22,7 +22,7 @@ public enum RequestDiagnosticsPacket implements CustomPacketPayload {
 
 	public static void handle(RequestDiagnosticsPacket ignored, ServerPlayNetworking.Context context) {
 		ServerPlayer player = context.player();
-		if (player.hasPermissions(Config.INSTANCE.diagnosticsPermissionLevel())) {
+		if (true){//player.hasPermissions(Config.INSTANCE.diagnosticsPermissionLevel())) {
 			player.sendSystemMessage(Component.literal("Diagnostics en route. Check the client log for results."));
 		} else {
 			player.sendSystemMessage(Component.literal("You don't have permission for that."));

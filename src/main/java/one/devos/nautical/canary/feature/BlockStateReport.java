@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -20,7 +20,7 @@ public class BlockStateReport {
 	public static void print() {
 		Multimap<String, BlockState> byNamespace = HashMultimap.create();
 		for (BlockState state : Block.BLOCK_STATE_REGISTRY) {
-			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+			Identifier id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
 			byNamespace.put(id.getNamespace(), state);
 		}
 

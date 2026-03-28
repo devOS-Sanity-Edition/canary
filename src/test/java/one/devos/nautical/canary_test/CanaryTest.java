@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.monster.Creeper;
 
@@ -44,7 +44,7 @@ public class CanaryTest implements ModInitializer {
 		throw new RuntimeException("Canary test failed: " + testName);
 	}
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(ID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 }
