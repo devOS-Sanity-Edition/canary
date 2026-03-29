@@ -1,34 +1,46 @@
-name: build
-on: [ pull_request, push ]
+name: Build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish Mode (release, snapshot, none)
+        required: true
+        default: "none"
 
 jobs:
   build:
-    strategy:
-      matrix:
-        java: [ 21 ]
     runs-on: ubuntu-latest
-    env:
-      PUBLISH_SUFFIX: snapshots
-      MAVEN_USER: ${{ secrets.MAVEN_USER }}
-      MAVEN_PASS: ${{ secrets.MAVEN_PASS }}
     steps:
-      - name: checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: setup jdk ${{ matrix.java }}
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          java-version: 25
           distribution: temurin
 
-      - name: make gradle wrapper executable
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make Gradle Wrapper Executable
         run: chmod +x ./gradlew
 
-      - name: build
-        run: ./gradlew buildOrPublish
+      - name: Build
+        run: ./gradlew build
 
-      - name: capture build artifacts
+      - name: Capture Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: build/libs/
+
+      - name: Publish Release
+        if: ${{ github.event.inputs.publish == 'release' }}
+        run: ./gradlew publishAllPublicationsToDevOsReleasesRepository -PdevOsReleasesUsername="${{ secrets.MAVEN_USER }}" -PdevOsReleasesPassword="${{ secrets.MAVEN_PASS }}"
+
+      - name: Publish Snapshot
+        if: ${{ github.event.inputs.publish == 'snapshot' }}
+        run: ./gradlew publishAllPublicationsToDevOsSnapshotsRepository -PdevOsSnapshotsUsername="${{ secrets.MAVEN_USER }}" -PdevOsSnapshotsPassword="${{ secrets.MAVEN_PASS }}"

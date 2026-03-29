@@ -62,9 +62,11 @@ publishing {
     }
 
     repositories {
-        maven("https://mvn.devos.one/releases") {
-            name = "devOsReleases"
-            credentials(PasswordCredentials::class)
+        listOf("Releases", "Snapshots").forEach {
+            maven("https://mvn.devos.one/${it.lowercase()}") {
+                name = "devOs$it"
+                credentials(PasswordCredentials::class)
+            }
         }
     }
 }
