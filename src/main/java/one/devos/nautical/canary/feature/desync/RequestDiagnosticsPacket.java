@@ -7,6 +7,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import one.devos.nautical.canary.CanaryPackets;
@@ -22,7 +24,7 @@ public enum RequestDiagnosticsPacket implements CustomPacketPayload {
 
 	public static void handle(RequestDiagnosticsPacket ignored, ServerPlayNetworking.Context context) {
 		ServerPlayer player = context.player();
-		if (true){//player.hasPermissions(Config.INSTANCE.diagnosticsPermissionLevel())) {
+		if (hasPermission(player)) {
 			player.sendSystemMessage(Component.literal("Diagnostics en route. Check the client log for results."));
 		} else {
 			player.sendSystemMessage(Component.literal("You don't have permission for that."));
@@ -51,5 +53,11 @@ public enum RequestDiagnosticsPacket implements CustomPacketPayload {
 	@Override
 	public Type<? extends CustomPacketPayload> type() {
 		return CanaryPackets.REQUEST_DIAGNOSTICS;
+	}
+
+	private static boolean hasPermission(ServerPlayer player) {
+		PermissionLevel level = Config.INSTANCE.diagnosticsPermissionLevel();
+		Permission permission = new Permission.HasCommandLevel(level);
+		return player.permissions().hasPermission(permission);
 	}
 }
