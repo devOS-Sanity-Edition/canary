@@ -29,6 +29,11 @@ tasks.processResources {
     }
 }
 
+tasks.test {
+    // we don't have unit tests, we have a test mod
+    failOnNoDiscoveredTests = false
+}
+
 loom.runs {
     register("testClient") {
         client()
